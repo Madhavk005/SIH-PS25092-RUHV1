@@ -1,0 +1,12 @@
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - '@reown/appkit'
+  - bigint-buffer
+  - bufferutil
+  - esbuild
+  - inngest-cli
+  - keccak
+  - protobufjs
+  - secp256k1
+  - unrs-resolver
+  - utf-8-validate
