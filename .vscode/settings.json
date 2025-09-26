@@ -1,0 +1,25 @@
+{
+    "git.ignoreLimitWarning": true,
+    "cSpell.words": [
+        "agentkit",
+        "apigatewaymanagementapi",
+        "cmdk",
+        "devnomic",
+        "drei",
+        "elizaos",
+        "excalidraw",
+        "inngest",
+        "ipfs",
+        "kbar",
+        "langchain",
+        "langgraph",
+        "neondatabase",
+        "nillion",
+        "nomiclabs",
+        "pangea",
+        "presigner",
+        "shadcn",
+        "tabler",
+        "viem"
+    ]
+}
