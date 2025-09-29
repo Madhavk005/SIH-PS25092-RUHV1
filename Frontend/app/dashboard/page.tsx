@@ -347,7 +347,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Error loading activities:", error);
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -376,13 +376,11 @@ export default function Dashboard() {
       // Fetch therapy sessions using the chat API
       const sessions = await getAllChatSessions();
 
-      // Fetch today's activities
-      const activitiesResponse = await fetch("/api/activities/today");
-      if (!activitiesResponse.ok) throw new Error("Failed to fetch activities");
-      const activities = await activitiesResponse.json();
+      // Use local activities from state
+      const todaysActivities = activities;
 
       // Calculate mood score from activities
-      const moodEntries = activities.filter(
+      const moodEntries = todaysActivities.filter(
         (a: Activity) => a.type === "mood" && a.moodScore !== null
       );
       const averageMood =
@@ -399,13 +397,13 @@ export default function Dashboard() {
         moodScore: averageMood,
         completionRate: 100,
         mindfulnessCount: sessions.length, // Total number of therapy sessions
-        totalActivities: activities.length,
+        totalActivities: todaysActivities.length,
         lastUpdated: new Date(),
       });
     } catch (error) {
       console.error("Error fetching daily stats:", error);
     }
-  }, []);
+  }, [activities]);
 
   // Fetch stats on mount and every 5 minutes
   useEffect(() => {
