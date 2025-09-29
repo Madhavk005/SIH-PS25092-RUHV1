@@ -44,11 +44,12 @@ const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "/api";
 
 // Helper function to get auth headers
 const getAuthHeaders = () => {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
   const token = localStorage.getItem("token");
-  return {
-    "Content-Type": "application/json",
-    Authorization: token ? `Bearer ${token}` : "",
-  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
 };
 
 export const createChatSession = async (): Promise<string> => {

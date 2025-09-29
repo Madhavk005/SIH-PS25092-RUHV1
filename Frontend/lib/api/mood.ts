@@ -16,7 +16,17 @@ interface MoodStats {
   }>;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+
+// Helper function to get auth headers
+const getAuthHeaders = () => {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  const token = localStorage.getItem("token");
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
+};
 
 export async function trackMood(
   data: MoodEntry
@@ -24,12 +34,9 @@ export async function trackMood(
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Not authenticated");
 
-  const response = await fetch(`${baseUrl}/api/mood`, {
+  const response = await fetch(`${API_BASE}/api/mood`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
@@ -54,10 +61,8 @@ export async function getMoodHistory(params?: {
   if (params?.endDate) queryParams.append("endDate", params.endDate);
   if (params?.limit) queryParams.append("limit", params.limit.toString());
 
-  const response = await fetch(`${baseUrl}/api/mood/history?${queryParams.toString()}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await fetch(`${API_BASE}/api/mood/history?${queryParams.toString()}`, {
+    headers: getAuthHeaders(),
   });
 
   if (!response.ok) {
@@ -77,10 +82,8 @@ export async function getMoodStats(
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Not authenticated");
 
-  const response = await fetch(`${baseUrl}/api/mood/stats?period=${period}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await fetch(`${API_BASE}/api/mood/stats?period=${period}`, {
+    headers: getAuthHeaders(),
   });
 
   if (!response.ok) {

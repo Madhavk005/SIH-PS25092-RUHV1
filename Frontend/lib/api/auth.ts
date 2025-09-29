@@ -1,12 +1,25 @@
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+
+// Get auth headers with token if available
+const getAuthHeaders = (includeToken = true) => {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (includeToken) {
+    const token = localStorage.getItem("token");
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return headers;
+};
+
 export async function registerUser(
   name: string,
   email: string,
   password: string
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
-  const res = await fetch(`${baseUrl}/auth/register`, {
+  const res = await fetch(`${API_BASE}/auth/register`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(false),
     body: JSON.stringify({ name, email, password }),
   });
   if (!res.ok) {
@@ -17,10 +30,9 @@ export async function registerUser(
 }
 
 export async function loginUser(email: string, password: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
-  const res = await fetch(`${baseUrl}/auth/login`, {
+  const res = await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(false),
     body: JSON.stringify({ email, password }),
   });
   if (!res.ok) {

@@ -5,7 +5,17 @@ interface ActivityEntry {
   duration?: number;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+
+// Helper function to get auth headers
+const getAuthHeaders = () => {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  const token = localStorage.getItem("token");
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
+};
 
 export async function logActivity(
   data: ActivityEntry
@@ -13,12 +23,9 @@ export async function logActivity(
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Not authenticated");
 
-  const response = await fetch(`${baseUrl}/api/activity`, {
+  const response = await fetch(`${API_BASE}/api/activity`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
