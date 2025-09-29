@@ -5,13 +5,15 @@ interface ActivityEntry {
   duration?: number;
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+
 export async function logActivity(
   data: ActivityEntry
 ): Promise<{ success: boolean; data: any }> {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Not authenticated");
 
-  const response = await fetch("/api/activity", {
+  const response = await fetch(`${baseUrl}/api/activity`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

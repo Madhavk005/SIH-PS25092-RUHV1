@@ -325,7 +325,7 @@ function EmptyState({ searchQuery }: { searchQuery: string }) {
   return (
     <div className="text-center py-8 text-muted-foreground">
       {searchQuery ? (
-        <p>No sessions found matching "{searchQuery}"</p>
+        <p>No sessions found matching &quot;{searchQuery}&quot;</p>
       ) : (
         <>
           <p>No sessions yet</p>

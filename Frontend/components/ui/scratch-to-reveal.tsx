@@ -111,7 +111,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
       document.removeEventListener("touchend", handleDocumentTouchEnd);
       document.removeEventListener("touchcancel", handleDocumentTouchEnd);
     };
-  }, [isScratching, isComplete, minScratchPercentage]);
+  }, [isScratching, isComplete, minScratchPercentage, startAnimation]);
 
   const handleMouseDown = () => setIsScratching(true);
 
@@ -131,7 +131,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     }
   };
 
-  const startAnimation = async () => {
+  const startAnimation = useCallback(async () => {
     await controls.start({
       scale: [1, 1.5, 1],
       rotate: [0, 10, -10, 10, -10, 0],
@@ -142,7 +142,7 @@ export const ScratchToReveal: React.FC<ScratchToRevealProps> = ({
     if (onComplete) {
       onComplete();
     }
-  };
+  }, [controls, onComplete]);
 
 
 

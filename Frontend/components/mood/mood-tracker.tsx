@@ -128,10 +128,9 @@ export function MoodTracker() {
                       className="absolute -top-4 left-1/2 -translate-x-1/2 bg-popover/95 p-4 rounded-lg shadow-lg w-64 space-y-3 backdrop-blur-sm border border-border z-10"
                     >
                       <div className="flex items-center justify-between">
-                        <h4 className="font-semibold">
-                          {day.day}'s Activities
-                        </h4>
-                        <div className="flex items-center gap-1">
+                                              <h4 className="font-semibold">
+                                                {day.day}&apos;s Activities
+                                              </h4>                        <div className="flex items-center gap-1">
                           <Target className="w-4 h-4 text-primary" />
                           <span className="text-sm">{day.value}%</span>
                         </div>

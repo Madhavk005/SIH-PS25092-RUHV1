@@ -3,7 +3,8 @@ export async function registerUser(
   email: string,
   password: string
 ) {
-  const res = await fetch("/api/auth/register", {
+  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+  const res = await fetch(`${baseUrl}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
@@ -16,7 +17,8 @@ export async function registerUser(
 }
 
 export async function loginUser(email: string, password: string) {
-  const res = await fetch("/api/auth/login", {
+  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
+  const res = await fetch(`${baseUrl}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),

@@ -422,7 +422,7 @@ export default function Dashboard() {
       icon: Brain,
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
-      description: "Today's average mood",
+      description: "Today&apos;s average mood",
     },
     {
       title: "Completion Rate",
